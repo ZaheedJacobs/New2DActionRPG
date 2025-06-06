@@ -1,5 +1,6 @@
 import pygame,sys
 from settings import *
+from state import *
 
 class Game:
 
@@ -11,6 +12,9 @@ class Game:
         # self.font = pygame.font.Font()
         self.running = True
         self.FPS = 60
+        self.states = []
+        self.splashScreen = SplashScreen(self)
+        self.states.append(self.splashScreen)
 
     def get_inputs(self):
         for event in pygame.event.get():
@@ -21,6 +25,9 @@ class Game:
         while self.running:
             dt = self.clock.tick(self.FPS)/1000
             self.get_inputs()
+            self.states[-1].update(dt)
+            self.states[-1].draw(self.screen)
+            pygame.display.update()
 
         pygame.quit()
         sys.exit()
