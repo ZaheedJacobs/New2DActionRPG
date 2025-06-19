@@ -28,3 +28,25 @@ class SplashScreen(State):
 
     def draw(self, screen):
         screen.fill(COLORS["blue"])
+
+class MainMenu(SplashScreen):
+    def __init__(self, game):
+        super().__init__(game)
+
+    def update(self, dt):
+        if INPUTS["space"]:
+            Scene(self.game).enter_state()
+            self.game.reset_inputs()
+
+    
+class Scene(State):
+    def __init__(self, game):
+        super().__init__(game)
+
+    def draw(self, screen):
+        screen.fill(COLORS["red"])
+
+    def update(self, dt):
+        if INPUTS["space"]:
+            MainMenu(self.game).enter_state()
+            self.game.reset_inputs()

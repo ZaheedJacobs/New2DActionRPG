@@ -13,13 +13,25 @@ class Game:
         self.running = True
         self.FPS = 60
         self.states = []
-        self.splashScreen = SplashScreen(self)
+        self.splashScreen = MainMenu(self)
         self.states.append(self.splashScreen)
 
     def get_inputs(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    INPUTS["space"] = True
+            
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    INPUTS["space"] = False
+    
+    def reset_inputs(self):
+        for key in INPUTS:
+            INPUTS[key] = False
 
     def loop(self):
         while self.running:
