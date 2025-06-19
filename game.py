@@ -3,9 +3,7 @@ from settings import *
 from state import *
 
 class Game:
-
     def __init__(self):
-        
         pygame.init()
         self.clock = pygame.time.Clock()
         self.screen= pygame.display.set_mode((WIDTH, HEIGHT))
@@ -15,6 +13,12 @@ class Game:
         self.states = []
         self.splashScreen = MainMenu(self)
         self.states.append(self.splashScreen)
+        self.font = pygame.font.Font(FONT, 50)
+
+    def render_text(self, text, color, font, pos, centralised = True):
+        surf = font.render(str(text), False, color)
+        rect = surf.get_rect(center = pos) if centralised else surf.get_rect(topleft = pos)
+        self.screen.blit(surf, rect)
 
     def get_inputs(self):
         for event in pygame.event.get():

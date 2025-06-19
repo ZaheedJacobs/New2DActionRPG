@@ -1,7 +1,7 @@
 WIDTH = 1280
 HEIGHT = 680
 TILESIZE = 16
-FONT = "assets/fonts/LexendEra-Regular.ttf"
+FONT = "assets/fonts/LexendExa-Regular.ttf"
 BUTTON_FONT = "assets/fonts/Almendra-Regular.ttf"
 BUTTON_SIZE = 16
 

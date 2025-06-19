@@ -38,6 +38,10 @@ class MainMenu(SplashScreen):
             Scene(self.game).enter_state()
             self.game.reset_inputs()
 
+    def draw(self, screen):
+        screen.fill(COLORS["blue"])
+        self.game.render_text("Menu", COLORS["white"], self.game.font, (640, 340))
+
     
 class Scene(State):
     def __init__(self, game):
@@ -45,6 +49,7 @@ class Scene(State):
 
     def draw(self, screen):
         screen.fill(COLORS["red"])
+        self.game.render_text("Scene", COLORS["white"], self.game.font, (640, 340))
 
     def update(self, dt):
         if INPUTS["space"]:
