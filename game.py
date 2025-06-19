@@ -6,8 +6,7 @@ class Game:
     def __init__(self):
         pygame.init()
         self.clock = pygame.time.Clock()
-        self.screen= pygame.display.set_mode((WIDTH, HEIGHT))
-        # self.font = pygame.font.Font()
+        self.screen= pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN | pygame.SCALED)
         self.running = True
         self.FPS = 60
         self.states = []
@@ -26,10 +25,15 @@ class Game:
                 self.running = False
             
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.running = False
+                    INPUTS["escape"] = True
                 if event.key == pygame.K_SPACE:
                     INPUTS["space"] = True
             
             if event.type == pygame.KEYUP:
+                if event.key == pygame.K_ESCAPE:
+                    INPUTS["escape"] = False
                 if event.key == pygame.K_SPACE:
                     INPUTS["space"] = False
     
