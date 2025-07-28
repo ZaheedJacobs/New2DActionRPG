@@ -1,6 +1,7 @@
 import pygame
 from settings import *
 from pytmx.util_pygame import load_pygame
+from camera import *
 
 class State():
 
@@ -47,9 +48,21 @@ class Scene(State):
     def __init__(self, game):
         super().__init__(game)
 
+        self.camera = Camera(self)
+
+        self.update_sprites = pygame.sprite.Group()
+        self.drawn_sprites = pygame.sprite.Group()
+        self.block_sprites = pygame.sprite.Group()
+        self.player_sprites = pygame.sprite.Group()
+        self.enemy_sprites = pygame.sprite.Group()
+        self.npc_sprites = pygame.sprite.Group()
+        self.tile_sprites = pygame.sprite.Group()
+        self.attack_sprites = pygame.sprite.Group()
+        self.attackable_sprites = pygame.sprite.Group()
+
     def draw(self, screen):
         screen.fill(COLORS["red"])
-        self.game.render_text("Scene", COLORS["white"], self.game.font, (640, 340))
+        # self.game.render_text("Scene", COLORS["white"], self.game.font, (640, 340))
 
     def update(self, dt):
         if INPUTS["space"]:
