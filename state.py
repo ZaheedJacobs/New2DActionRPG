@@ -1,7 +1,7 @@
 import pygame
-from settings import *
+from util.settings import *
 from pytmx.util_pygame import load_pygame
-from camera import *
+from util.camera import *
 
 class State():
 

@@ -1,5 +1,5 @@
 import pygame,sys
-from settings import *
+from util.settings import *
 from state import *
 
 class Game:
@@ -30,12 +30,29 @@ class Game:
                     INPUTS["escape"] = True
                 if event.key == pygame.K_SPACE:
                     INPUTS["space"] = True
+                if event.key in (pygame.K_RIGHT, pygame.K_d):
+                    INPUTS["right"] = True
+                if event.key in (pygame.K_LEFT, pygame.K_a):
+                    INPUTS["left"] = True
+                if event.key in (pygame.K_UP, pygame.K_w):
+                    INPUTS["up"] = True
+                if event.key in (pygame.K_DOWN, pygame.K_s):
+                    INPUTS["down"] = True
+                
             
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_ESCAPE:
                     INPUTS["escape"] = False
                 if event.key == pygame.K_SPACE:
                     INPUTS["space"] = False
+                if event.key in (pygame.K_RIGHT, pygame.K_d):
+                    INPUTS["right"] = False
+                if event.key in (pygame.K_LEFT, pygame.K_a):
+                    INPUTS["left"] = False
+                if event.key in (pygame.K_UP, pygame.K_w):
+                    INPUTS["up"] = False
+                if event.key in (pygame.K_DOWN, pygame.K_s):
+                    INPUTS["down"] = False
     
     def reset_inputs(self):
         for key in INPUTS:

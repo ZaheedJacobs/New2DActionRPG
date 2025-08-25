@@ -1,6 +1,6 @@
 import pygame
 from csv import reader
-from settings import *
+from util.settings import *
 
 class Camera(pygame.sprite.Sprite):
     def __init__(self, scene):
