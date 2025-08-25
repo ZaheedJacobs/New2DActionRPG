@@ -48,7 +48,7 @@ class Scene(State):
     def __init__(self, game):
         super().__init__(game)
 
-        # self.camera = Camera(self)
+        self.camera = Camera(self)
 
         self.update_sprites = pygame.sprite.Group()
         self.drawn_sprites = pygame.sprite.Group()

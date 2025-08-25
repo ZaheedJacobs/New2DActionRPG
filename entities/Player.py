@@ -5,8 +5,8 @@ from entity import Entity
 from entity_state import PlayerState
 
 class Player(Entity):
-    def __init__(self, game, name, groups):
-        super().__init__(game, name, groups)
+    def __init__(self, game, name, scene, groups):
+        super().__init__(game, name, scene, groups)
 
         self.state = PlayerState()
 

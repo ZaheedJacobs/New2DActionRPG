@@ -3,10 +3,11 @@ from util.settings import *
 from math import sin
 
 class Entity(pygame.sprite.Sprite):
-    def __init__(self, game, name, groups):
+    def __init__(self, game, name, scene, groups):
         super.__init__(groups)
         self.name = name
         self.game = game
+        self.scene = scene
         self.frame_index = 0
         self.animation_speed = 0.15
         self.direction = pygame.math.Vector2()
