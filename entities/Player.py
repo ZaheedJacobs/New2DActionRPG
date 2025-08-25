@@ -17,5 +17,10 @@ class Player(Entity):
 
         self.image = self.import_images(f"assets/characters/{self.name}/")
 
+    def input(self):
+
+        # Movement inputs
+        pass
+
     def update(self, dt):
         pass    
