@@ -1,6 +1,7 @@
 import pygame,sys
 from util.settings import *
 from state import *
+import os
 
 class Game:
     def __init__(self):
@@ -18,6 +19,20 @@ class Game:
         surf = font.render(str(text), False, color)
         rect = surf.get_rect(center = pos) if centralised else surf.get_rect(topleft = pos)
         self.screen.blit(surf, rect)
+
+    def get_animations(self, path:str):
+        animations = {}
+        for filename in os.listdir(path):
+            animations.update({filename:[]})
+        return animations
+    
+    def get_images(self, path:str):
+        images = []
+        for file in os.listdir(path):
+            full_path = os.path.join(path, file)
+            image = pygame.image.load(full_path).convert_alpha()
+            images.append(image)
+        return images
 
     def get_inputs(self):
         for event in pygame.event.get():

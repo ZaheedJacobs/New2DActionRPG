@@ -3,12 +3,20 @@ from util.settings import *
 from math import sin
 
 class Entity(pygame.sprite.Sprite):
-    def __init__(self, groups):
+    def __init__(self, game, name, groups):
         super.__init__(groups)
-
+        self.name = name
+        self.game = game
         self.frame_index = 0
         self.animation_speed = 0.15
         self.direction = pygame.math.Vector2()
+
+    def import_images(self, path:str):
+        self.animations = self.game.get_animations()
+
+        for animation in self.animations.keys():
+            full_path = path + animation
+            self.animations[animation] = self.game.get_images(full_path)
 
     def collision(self, direction: str):
         match direction:

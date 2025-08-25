@@ -1,5 +1,6 @@
 import pygame
 from util.settings import *
+from entity import Entity
 
 class EntityState:
     def __init__(self):
@@ -16,7 +17,7 @@ class EntityState:
             if is_in:
                 return state
             
-    def state_actions(self):
+    def state_actions(self, character:Entity):
         self.state = self.check_state()
         match self.state:
             case "idle":
@@ -28,16 +29,17 @@ class EntityState:
             case "hit":
                 self.hit_actions()
 
-    def idle_actions(self):
+    def idle_actions(self, character:Entity):
+        character.frame_index = 0
+        
+
+    def attack_actions(self, character:Entity):
         pass
 
-    def attack_actions(self):
+    def hit_actions(self, character:Entity):
         pass
 
-    def hit_actions(self):
-        pass
-
-    def run_actions(self):
+    def run_actions(self, character: Entity):
         pass
 
     def set_state(self, new_state:str):
