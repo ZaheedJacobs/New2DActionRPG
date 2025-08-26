@@ -60,6 +60,18 @@ class Scene(State):
         self.attack_sprites = pygame.sprite.Group()
         self.attackable_sprites = pygame.sprite.Group()
 
+        self.tmx_data = load_pygame(f"scenes/0/0.tmx")
+
+        self.create_scene()
+
+    def create_scene(self):
+        layers = []
+
+        for l in self.tmx_data.layers:
+            layers.append(l.name)
+
+            
+
     def draw(self, screen):
         screen.fill(COLORS["red"])
         # self.game.render_text("Scene", COLORS["white"], self.game.font, (640, 340))

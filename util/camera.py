@@ -12,7 +12,7 @@ class Camera(pygame.sprite.Sprite):
         self.delay = 2
 
     def get_scene_size(self, scene):
-        with open(f"scenes/{scene.current_scene}/{scene.current_scene}.csv", mode = "r", newline="") as csvfile:
+        with open(f"scenes/0/0.csv", mode = "r", newline="") as csvfile:
             file_reader = reader(csvfile, delimiter=",")
             for row in file_reader:
                 rows = sum(1 for row in file_reader) + 1
