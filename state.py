@@ -2,6 +2,7 @@ import pygame
 from util.settings import *
 from pytmx.util_pygame import load_pygame
 from util.camera import *
+from entities.objects import Collider, Wall
 
 class State():
 
