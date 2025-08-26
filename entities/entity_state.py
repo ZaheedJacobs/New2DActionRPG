@@ -53,7 +53,7 @@ class EntityState:
             character.frame_index = 0
 
         # Set the image
-        character.image = animation(int(character.frame_index))
+        character.image = animation[int(character.frame_index)]
         character.rect = character.image.get_rect(center = character.hitbox.center)
 
         # Flicker
