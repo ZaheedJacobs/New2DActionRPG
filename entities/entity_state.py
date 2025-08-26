@@ -1,6 +1,6 @@
 import pygame
 from util.settings import *
-from entity import Entity
+from entities.entity import Entity
 
 class EntityState:
     def __init__(self):

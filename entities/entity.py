@@ -3,17 +3,18 @@ from util.settings import *
 from math import sin
 
 class Entity(pygame.sprite.Sprite):
-    def __init__(self, game, obstacle_sprites, groups):
-        super.__init__(groups)
+    def __init__(self, game, group, obstacle_sprites, layer):
+        super().__init__(group)
         self.game = game
         self.obstacle_sprites = obstacle_sprites
         self.frame_index = 0
         self.animation_speed = 0.15
         self.direction = pygame.math.Vector2()
         self.vulnerable = True
+        self._layer = layer
 
     def import_images(self, path:str):
-        self.animations = self.game.get_animations()
+        self.animations = self.game.get_animations(path)
 
         for animation in self.animations.keys():
             full_path = path + animation

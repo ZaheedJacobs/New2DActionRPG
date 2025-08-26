@@ -1,12 +1,12 @@
 import pygame
 from util.settings import *
 from util.camera import Camera
-from entity import Entity
-from entity_state import PlayerState
+from entities.entity import Entity
+from entities.entity_state import PlayerState
 
 class Player(Entity):
-    def __init__(self, game, name, scene, pos, obstacle_sprites, groups):
-        super().__init__(game, obstacle_sprites, groups)
+    def __init__(self, game, group, name, scene, pos, obstacle_sprites, layer):
+        super().__init__(game, group, obstacle_sprites, layer)
         self.name = name
         self.scene = scene
         self.pos = pos
