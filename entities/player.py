@@ -27,11 +27,13 @@ class Player(Entity):
                 self.direction.y = -1
                 self.state.set_state("run")
                 self.state.direction_status = "up"
+                
             
             elif INPUTS["down"]:
                 self.direction.y = 1
                 self.state.set_state("run")
                 self.state.direction_status = "down"
+                
             else:
                 self.direction.y = 0
             
@@ -47,6 +49,14 @@ class Player(Entity):
             else:
                 self.direction.x = 0
 
+    def get_status(self):
+        if self.direction.x == 0 and self.direction.y == 0:
+            self.state.set_state("idle")
+        else:
+            self.state.set_state("run")
+
     def update(self, dt):
         self.input()
+        self.move(self.speed)
+        self.get_status()
         self.animate(self.state.state, self.state.direction_status)  

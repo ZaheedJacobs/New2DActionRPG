@@ -62,9 +62,12 @@ class Entity(pygame.sprite.Sprite):
             self.image.set_alpha(alpha)
         else:
             self.image.set_alpha(255)
+
+    def get_status(self):
+        pass
     
     def move(self, speed):
-        if self.direction.magnitude != 0:
+        if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
 
         self.hitbox.x += self.direction.x * speed
