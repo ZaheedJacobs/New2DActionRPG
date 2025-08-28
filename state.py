@@ -44,7 +44,7 @@ class MainMenu(SplashScreen):
 
     def draw(self, screen):
         screen.fill(COLORS["blue"])
-        self.game.render_text("Menu", COLORS["white"], self.game.font, (640, 340))
+        self.game.render_text("Menu", COLORS["white"], self.game.font, (WIDTH/2, HEIGHT/2))
 
     
 class Scene(State):
@@ -99,6 +99,8 @@ class Scene(State):
                                             "blocks"
                                             )
                         self.target = self.player
+
+                        self.camera.offset = vec(self.player.rect.centerx - WIDTH/2, self.player.rect.centery - HEIGHT/2)
 
     def draw(self, screen):
         screen.fill(COLORS["red"])

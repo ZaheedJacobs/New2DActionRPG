@@ -1,7 +1,7 @@
 from pygame.math import Vector2 as vec
 
-WIDTH = 1280
-HEIGHT = 720
+WIDTH = 400
+HEIGHT = 224
 TILESIZE = 16
 FONT = "assets/fonts/LexendExa-Regular.ttf"
 BUTTON_FONT = "assets/fonts/Almendra-Regular.ttf"

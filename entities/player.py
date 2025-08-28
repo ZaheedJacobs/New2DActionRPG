@@ -9,14 +9,13 @@ class Player(Entity):
         super().__init__(game, group, obstacle_sprites, layer)
         self.name = name
         self.scene = scene
-        self.pos = pos
         self.state = PlayerState()
 
         self.speed = 5
         self.import_images(f"assets/characters/{self.name}/")
         self.image = self.animations[f"idle_{self.state.direction_status}"][self.frame_index]
-        self.rect = self.image.get_rect(topleft = self.pos)
-        self.hitbox = self.rect.inflate(-6, -20)
+        self.rect = self.image.get_rect(topleft = pos)
+        self.hitbox = self.rect.copy().inflate(-self.rect.width/2, -self.rect.height/2)
 
         self.attacking = False
 
@@ -50,4 +49,4 @@ class Player(Entity):
 
     def update(self, dt):
         self.input()
-        self.state.animate(self)  
+        self.animate(self.state.state, self.state.direction_status)  

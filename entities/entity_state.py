@@ -43,25 +43,7 @@ class EntityState:
     # def run_actions(self, character: Entity):
     #     pass
 
-    def animate(self, character:Entity):
-        animation = character.animations[f"{self.state}_{self.direction_status}"]
-
-        # Loop over frame index
-        character.frame_index += character.animation_speed
-
-        if character.frame_index >= len(animation):
-            character.frame_index = 0
-
-        # Set the image
-        character.image = animation[int(character.frame_index)]
-        character.rect = character.image.get_rect(center = character.hitbox.center)
-
-        # Flicker
-        if not character.vulnerable:
-            alpha = character.wave_value()
-            character.image.set_alpha(alpha)
-        else:
-            character.image.set_alpha(255)
+    
 
     def set_state(self, new_state:str):
         for state in self.states.keys():

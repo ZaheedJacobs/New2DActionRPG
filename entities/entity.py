@@ -43,6 +43,26 @@ class Entity(pygame.sprite.Sprite):
                 elif self.direction.y < 0: # Moving up
                     self.hitbox.top = sprite.hitbox.bottom
     
+    def animate(self, state:str, direction:str):
+        animation = self.animations[f"{state}_{direction}"]
+
+        # Loop over frame index
+        self.frame_index += self.animation_speed
+
+        if self.frame_index >= len(animation):
+            self.frame_index = 0
+
+        # Set the image
+        self.image = animation[int(self.frame_index)]
+        self.rect = self.image.get_rect(center = self.hitbox.center)
+
+        # Flicker
+        if not self.vulnerable:
+            alpha = self.wave_value()
+            self.image.set_alpha(alpha)
+        else:
+            self.image.set_alpha(255)
+    
     def move(self, speed):
         if self.direction.magnitude != 0:
             self.direction = self.direction.normalize()
