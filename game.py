@@ -53,8 +53,19 @@ class Game:
                     INPUTS["up"] = True
                 if event.key in (pygame.K_DOWN, pygame.K_s):
                     INPUTS["down"] = True
-                
             
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    INPUTS["left_click"] = True
+                if event.button == 3:
+                    INPUTS["right_click"] = True
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    INPUTS["left_click"] = False
+                if event.button == 3:
+                    INPUTS["right_click"] = False
+                
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_ESCAPE:
                     INPUTS["escape"] = False

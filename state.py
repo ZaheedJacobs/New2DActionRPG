@@ -76,7 +76,7 @@ class Scene(State):
 
             if "blocks" in layers:
                 for x, y, surf in self.tmx_data.get_layer_by_name("blocks").tiles():
-                    Wall([self.block_sprites, self.drawn_sprites], (x * TILESIZE, y * TILESIZE), "blocks", surf)
+                    Wall([self.block_sprites, self.drawn_sprites, self.obstacle_sprites], (x * TILESIZE, y * TILESIZE), "blocks", surf)
             
             if "tiles" in layers:
                 for x, y, surf in self.tmx_data.get_layer_by_name("tiles").tiles():

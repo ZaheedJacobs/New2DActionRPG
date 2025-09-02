@@ -14,6 +14,10 @@ class Entity(pygame.sprite.Sprite):
         self._layer = layer
         self.state = "idle"
         self.direction_status = "right"
+        self.vel = vec()
+        self.acc = vec()
+        self.force = 2000
+        self.frict = -15
 
     def import_images(self, path:str):
         self.animations = self.game.get_animations(path)
@@ -78,13 +82,31 @@ class Entity(pygame.sprite.Sprite):
         if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
 
-        self.hitbox.x += self.direction.x * speed
+        # self.hitbox.x += self.direction.x * speed
+        # self.collision("horizontal")
+
+        # self.hitbox.y += self.direction.y * speed
+        # self.collision("vertical")
+
+        # self.rect.center = self.hitbox.center
+
+    def physics(self, dt, frict, speed):
+        # x-direction
+        self.acc.x += self.vel.x * frict
+        self.vel.x += self.acc.x * dt
+        self.hitbox.centerx += self.vel.x * dt + (self.vel.x / 2)*dt
+        self.rect.centerx = self.hitbox.centerx
         self.collision("horizontal")
 
-        self.hitbox.y += self.direction.y * speed
+        # y-direction
+        self.acc.y += self.vel.y * frict
+        self.vel.y += self.acc.y * dt
+        self.hitbox.centery += self.vel.y * dt + (self.vel.y / 2)*dt
+        self.rect.centery = self.hitbox.centery
         self.collision("vertical")
 
-        self.rect.center = self.hitbox.center
+        if self.vel.magnitude() >= speed:
+            self.vel = self.vel.normalize() * speed
 
     def wave_value(self):
         """Handles flashing effect when player or enemy gets hit"""
