@@ -105,7 +105,11 @@ class Scene(State):
     def draw(self, screen):
         screen.fill(COLORS["red"])
         self.camera.draw(screen, self.drawn_sprites)
-        # self.game.render_text("Scene", COLORS["white"], self.game.font, (640, 340))
+        self.debugger([f"Player state: {self.player.state}", f"Player direction axis: {self.player.direction}", f"Player direction: {self.player.direction_status}"])
+    
+    def debugger(self, debug_list):
+        for index, name in enumerate(debug_list):
+            self.game.render_text(name, COLORS["white"], self.game.font, (10, 15 * index), False)
 
     def update(self, dt):
         self.update_sprites.update(dt)

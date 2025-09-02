@@ -2,18 +2,16 @@ import pygame
 from util.settings import *
 from util.camera import Camera
 from entities.entity import Entity
-from entities.entity_state import PlayerState
 
 class Player(Entity):
     def __init__(self, game, group, name, scene, pos, obstacle_sprites, layer):
         super().__init__(game, group, obstacle_sprites, layer)
         self.name = name
         self.scene = scene
-        self.state = PlayerState()
 
-        self.speed = 5
+        self.speed = 2
         self.import_images(f"assets/characters/{self.name}/")
-        self.image = self.animations[f"idle_{self.state.direction_status}"][self.frame_index]
+        self.image = self.animations[f"idle_{self.direction_status}"][self.frame_index]
         self.rect = self.image.get_rect(topleft = pos)
         self.hitbox = self.rect.copy().inflate(-self.rect.width/2, -self.rect.height/2)
 
@@ -25,38 +23,33 @@ class Player(Entity):
         if not self.attacking:
             if INPUTS["up"]:
                 self.direction.y = -1
-                self.state.set_state("run")
-                self.state.direction_status = "up"
+                self.set_direction("up")
                 
             
             elif INPUTS["down"]:
                 self.direction.y = 1
-                self.state.set_state("run")
-                self.state.direction_status = "down"
-                
+                self.set_direction("down")
             else:
                 self.direction.y = 0
             
             if INPUTS["right"]:
                 self.direction.x = 1
-                self.state.set_state("run")
-                self.state.direction_status = "right"
+                self.set_direction("right")
             
             elif INPUTS["left"]:
                 self.direction.x = -1
-                self.state.set_state("run")
-                self.state.direction_status = "left"
+                self.set_direction("left")
             else:
                 self.direction.x = 0
 
     def get_status(self):
-        if self.direction.x == 0 and self.direction.y == 0:
-            self.state.set_state("idle")
+        if self.direction.magnitude() != 0:
+            self.set_state("run")
         else:
-            self.state.set_state("run")
+            self.set_state("idle")
 
     def update(self, dt):
         self.input()
         self.move(self.speed)
         self.get_status()
-        self.animate(self.state.state, self.state.direction_status)  
+        self.animate()  

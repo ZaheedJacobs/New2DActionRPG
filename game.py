@@ -13,7 +13,7 @@ class Game:
         self.states = []
         self.splashScreen = MainMenu(self)
         self.states.append(self.splashScreen)
-        self.font = pygame.font.Font(FONT, 50)
+        self.font = pygame.font.Font(FONT, 15)
 
     def render_text(self, text, color, font, pos, centralised = True):
         surf = font.render(str(text), False, color)

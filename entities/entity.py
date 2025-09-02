@@ -12,6 +12,8 @@ class Entity(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2()
         self.vulnerable = True
         self._layer = layer
+        self.state = "idle"
+        self.direction_status = "right"
 
     def import_images(self, path:str):
         self.animations = self.game.get_animations(path)
@@ -43,8 +45,8 @@ class Entity(pygame.sprite.Sprite):
                 elif self.direction.y < 0: # Moving up
                     self.hitbox.top = sprite.hitbox.bottom
     
-    def animate(self, state:str, direction:str):
-        animation = self.animations[f"{state}_{direction}"]
+    def animate(self):
+        animation = self.animations[f"{self.state}_{self.direction_status}"]
 
         # Loop over frame index
         self.frame_index += self.animation_speed
@@ -62,6 +64,12 @@ class Entity(pygame.sprite.Sprite):
             self.image.set_alpha(alpha)
         else:
             self.image.set_alpha(255)
+
+    def set_state(self, new_state:str):
+        self.state = new_state
+
+    def set_direction(self, new_direction:str):
+        self.direction_status = new_direction
 
     def get_status(self):
         pass
