@@ -63,7 +63,7 @@ class Entity(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = self.hitbox.center)
 
         # Flicker
-        if not self.vulnerable:
+        if not self.vulnerable and self.hurt_time:
             alpha = self.wave_value()
             self.image.set_alpha(alpha)
         else:
@@ -77,7 +77,7 @@ class Entity(pygame.sprite.Sprite):
 
     def get_status(self):
         pass
-    
+
     def move(self, speed):
         if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
