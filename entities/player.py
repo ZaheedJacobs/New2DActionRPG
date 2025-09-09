@@ -72,12 +72,14 @@ class Player(Entity):
                 self.frict = -15
                 self.dash_vec = None
                 self.mouse_vec = vec()
+                self.vulnerable = True
     
     def dash(self):
         self.dashing = True
         self.dash_time = pygame.time.get_ticks()
         self.frict = -2
         self.dash_vec = self.vec_to_mouse(200)
+        self.vulnerable = False
 
     def vec_to_mouse(self, speed):
         self.mouse_vec = vec(pygame.mouse.get_pos()) - (vec(self.hitbox.center) - vec(self.scene.camera.offset))
