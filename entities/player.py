@@ -67,7 +67,7 @@ class Player(Entity):
             if current_time - self.dash_time >= self.dash_duration:
                 self.dashing = False
                 self.dash_time = None
-                self.speed = self.base_speed
+                # self.speed = self.base_speed
                 self.frict = -15
                 self.dash_vec = None
     
@@ -78,7 +78,7 @@ class Player(Entity):
         self.dash_vec = self.vec_to_mouse(200)
 
     def vec_to_mouse(self, speed):
-        direction = vec(pygame.mouse.get_pos())
+        direction = vec(pygame.mouse.get_pos()) - (vec(self.hitbox.center) - vec(self.scene.camera.offset))
         if direction.length() > 0 : direction.normalize_ip()
         return direction * speed
 
@@ -103,4 +103,4 @@ class Player(Entity):
         self.physics(dt, self.frict, 60)
         if self.dashing:
             self.acc = vec()
-            self.vec = self.dash_vec
+            self.vel = self.dash_vec
