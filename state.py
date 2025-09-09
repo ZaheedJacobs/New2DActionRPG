@@ -105,7 +105,7 @@ class Scene(State):
     def draw(self, screen):
         screen.fill(COLORS["red"])
         self.camera.draw(screen, self.drawn_sprites)
-        self.debugger([f"Player state: {self.player.state}", f"Dash vector: {self.player.dash_vec}", f"Player velocity vector: {self.player.vel.x}, {self.player.vel.y}"])
+        self.debugger([f"Current player animation: {self.player.state}_{self.player.direction_status}", f"Direction vector: {self.player.direction}" , f"Dash vector: {self.player.mouse_vec}"])
     
     def debugger(self, debug_list):
         for index, name in enumerate(debug_list):

@@ -26,6 +26,7 @@ class Player(Entity):
         self.dash_time = None
         self.pending = False
         self.dash_vec = None
+        self.mouse_vec = vec()
 
     def input(self):
 
@@ -70,6 +71,7 @@ class Player(Entity):
                 # self.speed = self.base_speed
                 self.frict = -15
                 self.dash_vec = None
+                self.mouse_vec = vec()
     
     def dash(self):
         self.dashing = True
@@ -78,9 +80,24 @@ class Player(Entity):
         self.dash_vec = self.vec_to_mouse(200)
 
     def vec_to_mouse(self, speed):
-        direction = vec(pygame.mouse.get_pos()) - (vec(self.hitbox.center) - vec(self.scene.camera.offset))
-        if direction.length() > 0 : direction.normalize_ip()
-        return direction * speed
+        self.mouse_vec = vec(pygame.mouse.get_pos()) - (vec(self.hitbox.center) - vec(self.scene.camera.offset))
+        if self.mouse_vec.length() > 0 : self.mouse_vec.normalize_ip()
+        self.evaluate_dash_direction(self.mouse_vec)
+        return self.mouse_vec * speed
+    
+    def evaluate_dash_direction(self, dash_vec: vec):
+        # Check absolute values to determine primary direction
+        # if the x component is greater, dash horizontally; otherwise, dash vertically
+        if abs(dash_vec.x) > abs(dash_vec.y):
+            if dash_vec.x > 0:
+                self.set_direction("right")
+            else:
+                self.set_direction("left")
+        else:
+            if dash_vec.y > 0:
+                self.set_direction("down")
+            else:
+                self.set_direction("up")
 
     def get_status(self):
         if self.direction.magnitude() != 0:
