@@ -32,7 +32,7 @@ class Player(Entity):
 
         if self.alive():
             self.movement_input()
-            # self.attack_input()
+            self.attack_input()
         
     def movement_input(self):
         # Movement inputs
@@ -69,11 +69,10 @@ class Player(Entity):
 
     def attack_input(self):
         # Attack input
-        # if INPUTS["left_click"] and not self.attacking and not self.dashing:
-        #     self.attacking = True
-        #     self.attack_time = pygame.time.get_ticks()
+        if INPUTS["left_click"] and not self.attacking and not self.dashing:
+            self.attacking = True
+            self.attack_time = pygame.time.get_ticks()
             # self.create_attack()
-        pass
 
     def handle_cooldowns(self):
         current_time = pygame.time.get_ticks()
@@ -139,8 +138,9 @@ class Player(Entity):
             self.get_status()
             self.animate()
             self.handle_cooldowns()
-            self.physics(dt, self.frict, 60)
             if self.dashing:
                 self.acc = vec()
                 self.vel = self.dash_vec
                 self.physics(dt, self.frict, 30)
+            else:
+                self.physics(dt, self.frict, 60)
