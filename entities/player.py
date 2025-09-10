@@ -31,7 +31,7 @@ class Player(Entity):
     def input(self):
 
         # Movement inputs
-        if not self.attacking:
+        if not self.attacking and self.alive():
             if INPUTS["up"]:
                 self.direction.y = -1
                 self.set_direction("up")
@@ -61,6 +61,12 @@ class Player(Entity):
             # Dash functionality
             if INPUTS["right_click"]:
                 self.dash()
+        
+        # Attack input
+        # if INPUTS["left_click"] and not self.attacking and not self.dashing and self.alive():
+        #     self.attacking = True
+        #     self.attack_time = pygame.time.get_ticks()
+            # self.create_attack()
 
     def handle_cooldowns(self):
         current_time = pygame.time.get_ticks()
@@ -73,6 +79,12 @@ class Player(Entity):
                 self.dash_vec = None
                 self.mouse_vec = vec()
                 self.vulnerable = True
+        
+        if self.attacking:
+            if current_time - self.attack_time >= self.attack_cooldown:
+                self.attacking = False
+                self.attack_time = None
+                # self.destroy_attack()
     
     def dash(self):
         self.dashing = True
