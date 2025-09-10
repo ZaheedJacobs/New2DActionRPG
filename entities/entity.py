@@ -36,18 +36,35 @@ class Entity(pygame.sprite.Sprite):
     def horizontal_collision(self):
         for sprite in self.obstacle_sprites:
             if sprite.hitbox.colliderect(self.hitbox):
-                if self.direction.x > 0: # Moving right
-                    self.hitbox.right = sprite.hitbox.left
-                elif self.direction.x < 0: # Moving left
-                    self.hitbox.left = sprite.hitbox.right
+                if not self.has_dash() or not self.dashing:
+                    if self.direction.x > 0: # Moving right
+                        self.hitbox.right = sprite.hitbox.left
+                    elif self.direction.x < 0: # Moving left
+                        self.hitbox.left = sprite.hitbox.right
+                elif self.dashing:
+                    if self.dash_vec.x > 0:
+                        self.hitbox.right = sprite.hitbox.left
+                    elif self.dash_vec.x < 0:
+                        self.hitbox.left = sprite.hitbox.right
+                self.rect.centerx = self.hitbox.centerx
 
     def vertical_collision(self):
         for sprite in self.obstacle_sprites:
             if sprite.hitbox.colliderect(self.hitbox):
-                if self.direction.y > 0: # Moving down
-                    self.hitbox.bottom = sprite.hitbox.top
-                elif self.direction.y < 0: # Moving up
-                    self.hitbox.top = sprite.hitbox.bottom
+                if not self.has_dash() or not self.dashing:
+                    if self.direction.y > 0: # Moving down
+                        self.hitbox.bottom = sprite.hitbox.top
+                    elif self.direction.y < 0: # Moving up
+                        self.hitbox.top = sprite.hitbox.bottom
+                elif self.dashing:
+                    if self.dash_vec.y > 0:
+                        self.hitbox.bottom = sprite.hitbox.top
+                    elif self.dash_vec.y < 0:
+                        self.hitbox.top = sprite.hitbox.bottom
+                self.rect.centery = self.hitbox.centery
+
+    def has_dash(self):
+        return self.dashing != None
     
     def animate(self):
         animation = self.animations[f"{self.state}_{self.direction_status}"]

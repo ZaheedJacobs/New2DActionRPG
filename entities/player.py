@@ -30,8 +30,13 @@ class Player(Entity):
 
     def input(self):
 
+        if self.alive():
+            self.movement_input()
+            # self.attack_input()
+        
+    def movement_input(self):
         # Movement inputs
-        if not self.attacking and self.alive():
+        if not self.attacking:
             if INPUTS["up"]:
                 self.direction.y = -1
                 self.set_direction("up")
@@ -61,12 +66,14 @@ class Player(Entity):
             # Dash functionality
             if INPUTS["right_click"]:
                 self.dash()
-        
+
+    def attack_input(self):
         # Attack input
-        # if INPUTS["left_click"] and not self.attacking and not self.dashing and self.alive():
+        # if INPUTS["left_click"] and not self.attacking and not self.dashing:
         #     self.attacking = True
         #     self.attack_time = pygame.time.get_ticks()
             # self.create_attack()
+        pass
 
     def handle_cooldowns(self):
         current_time = pygame.time.get_ticks()
@@ -126,12 +133,14 @@ class Player(Entity):
         self.set_state("idle")
 
     def update(self, dt):
-        self.input()
-        self.move(self.speed)
-        self.get_status()
-        self.animate()
-        self.handle_cooldowns()
-        self.physics(dt, self.frict, 60)
-        if self.dashing:
-            self.acc = vec()
-            self.vel = self.dash_vec
+        if self.alive():
+            self.input()
+            self.move(self.speed)
+            self.get_status()
+            self.animate()
+            self.handle_cooldowns()
+            self.physics(dt, self.frict, 60)
+            if self.dashing:
+                self.acc = vec()
+                self.vel = self.dash_vec
+                self.physics(dt, self.frict, 30)
