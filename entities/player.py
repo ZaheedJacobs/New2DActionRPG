@@ -70,9 +70,7 @@ class Player(Entity):
     def attack_input(self):
         # Attack input
         if INPUTS["left_click"] and not self.attacking and not self.dashing:
-            self.attacking = True
-            self.attack_time = pygame.time.get_ticks()
-            # self.create_attack()
+            self.attack()
 
     def handle_cooldowns(self):
         current_time = pygame.time.get_ticks()
@@ -91,6 +89,26 @@ class Player(Entity):
                 self.attacking = False
                 self.attack_time = None
                 # self.destroy_attack()
+    
+    def attack(self):
+        self.attacking = True
+        self.attack_time = pygame.time.get_ticks()
+        # self.create_attack()
+        self.attack_vec = self.vec_to_mouse(10)
+    
+    def evaluate_attack_direction(self, attack_vec: vec):
+        # Check absolute values to determine primary direction
+        # if the x component is greater, attack horizontally; otherwise, attack vertically
+        if abs(attack_vec.x) > abs(attack_vec.y):
+            if attack_vec.x > 0:
+                self.set_direction("right")
+            else:
+                self.set_direction("left")
+        else:
+            if attack_vec.y > 0:
+                self.set_direction("down")
+            else:
+                self.set_direction("up")
     
     def dash(self):
         self.dashing = True
@@ -136,8 +154,13 @@ class Player(Entity):
             self.input()
             self.move(self.speed)
             self.get_status()
-            self.animate()
+            if self.state in ("idle", "run"):
+                self.animate(15 * dt)
+            else:
+                self.animate(30 * dt, loop = False)
+            
             self.handle_cooldowns()
+            
             if self.dashing:
                 self.acc = vec()
                 self.vel = self.dash_vec

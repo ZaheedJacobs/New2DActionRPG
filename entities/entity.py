@@ -66,14 +66,17 @@ class Entity(pygame.sprite.Sprite):
     def has_dash(self):
         return self.dashing != None
     
-    def animate(self):
+    def animate(self, fps, loop = True):
         animation = self.animations[f"{self.state}_{self.direction_status}"]
 
         # Loop over frame index
-        self.frame_index += self.animation_speed
+        self.frame_index += fps
 
-        if self.frame_index >= len(animation):
-            self.frame_index = 0
+        if self.frame_index >= len(animation) - 1:
+            if loop:
+                self.frame_index = 0
+            else:
+                self.frame_index = len(animation) - 1
 
         # Set the image
         self.image = animation[int(self.frame_index)]
