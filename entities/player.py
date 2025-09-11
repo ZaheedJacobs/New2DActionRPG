@@ -120,7 +120,10 @@ class Player(Entity):
     def vec_to_mouse(self, speed):
         self.mouse_vec = vec(pygame.mouse.get_pos()) - (vec(self.hitbox.center) - vec(self.scene.camera.offset))
         if self.mouse_vec.length() > 0 : self.mouse_vec.normalize_ip()
-        self.evaluate_dash_direction(self.mouse_vec)
+        if self.dashing:
+            self.evaluate_dash_direction(self.mouse_vec)
+        elif self.attacking:
+            self.evaluate_attack_direction(self.mouse_vec)
         return self.mouse_vec * speed
     
     def evaluate_dash_direction(self, dash_vec: vec):
